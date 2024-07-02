@@ -4,10 +4,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.collections.Employee;
 import pro.sky.collections.exceptions.EmployeeAlreadyAddedException;
 import pro.sky.collections.exceptions.EmployeeNotFoundException;
 import pro.sky.collections.exceptions.EmployeeStorageIsFullException;
 import pro.sky.collections.service.EmployeeService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
@@ -19,38 +22,23 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public EmployeeService add(@RequestParam String firstName, @RequestParam String lastName) {
-        try {
-            employeeService.addPerson(firstName, lastName);
-        } catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e) {
-            e.printStackTrace();
-        }
-        return employeeService;
+    public Employee add(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.addPerson(firstName, lastName);
     }
 
     @GetMapping("/remove")
-    public EmployeeService deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
-        try {
-            employeeService.deletePerson(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            e.printStackTrace();
-        }
-        return employeeService;
+    public Employee deletePerson(@RequestParam String firstName, @RequestParam  String lastName) {
+        return employeeService.deletePerson(firstName, lastName);
     }
 
     @GetMapping("/find")
-    public EmployeeService findPerson(@RequestParam String firstName, @RequestParam String lastName) {
-        try {
-            employeeService.findPerson(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
-            e.printStackTrace();
-        }
-        return employeeService;
+    public Employee findPerson(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.findPerson(firstName, lastName);
     }
 
     @GetMapping("/listAll")
-    public EmployeeService listAllEmployees() {
-        return (EmployeeService) employeeService.getAllEmployees();
+    public List<Employee> listAllEmployees() {
+        return employeeService.getAllEmployees();
     }
 
 }

@@ -1,6 +1,7 @@
 package pro.sky.collections.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.collections.Employee;
 import pro.sky.collections.exceptions.EmployeeAlreadyAddedException;
 import pro.sky.collections.exceptions.EmployeeNotFoundException;
 import pro.sky.collections.exceptions.EmployeeStorageIsFullException;
@@ -9,43 +10,41 @@ import java.util.*;
 @Service
 public class EmployeeService {
     private final int maximumEmployees = 10;
-    private List<String> allEmployees = new ArrayList<>(maximumEmployees);
+    private List<Employee> allEmployees = new ArrayList<>(maximumEmployees);
 
-    public EmployeeService(List<String> allEmployees) {
-        this.allEmployees = allEmployees;
-    }
 
-    public List<String> getAllEmployees() {
+    public List<Employee> getAllEmployees() {
         return allEmployees;
     }
 
-    public void addPerson(String firstName, String lastName) {
+    public Employee addPerson(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
         if (allEmployees.size() >= maximumEmployees) {
             throw new EmployeeStorageIsFullException();
-        } else if (allEmployees.contains(firstName) || (allEmployees.contains(lastName))) {
+        } else if (allEmployees.contains(employee)) {
             throw new EmployeeAlreadyAddedException();
         } else {
-            allEmployees.add(firstName);
-            allEmployees.add(lastName);
+            allEmployees.add(employee);
         }
+        return employee;
     }
 
-    public void deletePerson(String firstName, String lastName) {
-        if (!allEmployees.contains(firstName) || (!allEmployees.contains(lastName))) {
+    public Employee deletePerson(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (!allEmployees.contains(employee)) {
             throw new EmployeeNotFoundException();
         } else {
-            allEmployees.remove((String) firstName);
-            allEmployees.remove((String) lastName);
+            allEmployees.remove(employee);
         }
+        return employee;
     }
 
-    public void findPerson(String firstName, String lastName) {
-        if (!allEmployees.contains(firstName) || !allEmployees.contains(lastName)) {
+    public Employee findPerson(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (!allEmployees.contains(employee)) {
             throw new EmployeeNotFoundException();
         } else {
-            allEmployees.get(Integer.parseInt(firstName));
-            allEmployees.get(Integer.parseInt(lastName));
-
+            return employee;
         }
     }
 
