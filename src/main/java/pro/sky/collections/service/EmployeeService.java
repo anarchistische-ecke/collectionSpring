@@ -10,10 +10,13 @@ import java.util.*;
 @Service
 public class EmployeeService {
     private final int maximumEmployees = 10;
-    private List<Employee> allEmployees = new ArrayList<>(maximumEmployees);
+    private Map<String, Employee> allEmployees;
 
+    public EmployeeService(Map<String, Employee> allEmployees) {
+        this.allEmployees = new HashMap<>();
+    }
 
-    public List<Employee> getAllEmployees() {
+    public Map<String, Employee> getAllEmployees() {
         return allEmployees;
     }
 
@@ -21,27 +24,27 @@ public class EmployeeService {
         Employee employee = new Employee(firstName, lastName);
         if (allEmployees.size() >= maximumEmployees) {
             throw new EmployeeStorageIsFullException();
-        } else if (allEmployees.contains(employee)) {
+        } else if (allEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         } else {
-            allEmployees.add(employee);
+            allEmployees.put(employee.getFullName(), employee);
         }
         return employee;
     }
 
     public Employee deletePerson(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (!allEmployees.contains(employee)) {
+        if (!allEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         } else {
-            allEmployees.remove(employee);
+            allEmployees.remove(employee.getFullName());
         }
         return employee;
     }
 
     public Employee findPerson(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (!allEmployees.contains(employee)) {
+        if (!allEmployees.containsKey(employee.getFullName())) {
             throw new EmployeeNotFoundException();
         } else {
             return employee;
