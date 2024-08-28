@@ -1,14 +1,22 @@
 package pro.sky.collections;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
 
 public class Employee {
     private String firstName;
     private String lastName;
+    private double salary;
+    private int department;
 
-    public Employee(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Employee(String firstName, String lastName, int department, double salary) {
+        this.firstName = capitalize(firstName.toLowerCase());
+        this.lastName = capitalize(lastName.toLowerCase());
+        this.department = department;
+        this.salary = salary;
     }
 
     public String getFirstName() {
@@ -25,6 +33,22 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
     }
 
     @Override

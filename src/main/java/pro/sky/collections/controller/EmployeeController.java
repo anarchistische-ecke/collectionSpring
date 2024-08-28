@@ -5,9 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.collections.Employee;
-import pro.sky.collections.exceptions.EmployeeAlreadyAddedException;
-import pro.sky.collections.exceptions.EmployeeNotFoundException;
-import pro.sky.collections.exceptions.EmployeeStorageIsFullException;
 import pro.sky.collections.service.EmployeeService;
 
 import java.util.List;
@@ -22,18 +19,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public Employee add(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.addPerson(firstName, lastName);
+    public Employee add(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int department, @RequestParam double salary) {
+        return employeeService.addPerson(firstName, lastName, department, salary);
     }
 
     @GetMapping("/remove")
-    public Employee deletePerson(@RequestParam String firstName, @RequestParam  String lastName) {
-        return employeeService.deletePerson(firstName, lastName);
+    public Employee deletePerson(@RequestParam String firstName, @RequestParam  String lastName, @RequestParam int department, @RequestParam double salary) {
+        return employeeService.deletePerson(firstName, lastName, department, salary);
     }
 
     @GetMapping("/find")
-    public Employee findPerson(@RequestParam String firstName, @RequestParam String lastName) {
-        return employeeService.findPerson(firstName, lastName);
+    public Employee findPerson(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int department, @RequestParam double salary) {
+        return employeeService.findPerson(firstName, lastName, department, salary);
     }
 
     @GetMapping("/listAll")
