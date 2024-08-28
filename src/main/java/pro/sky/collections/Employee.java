@@ -12,9 +12,11 @@ public class Employee {
     private double salary;
     private int department;
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int department, double salary) {
         this.firstName = capitalize(firstName.toLowerCase());
         this.lastName = capitalize(lastName.toLowerCase());
+        this.department = department;
+        this.salary = salary;
     }
 
     public String getFirstName() {

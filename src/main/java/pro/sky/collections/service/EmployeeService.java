@@ -19,8 +19,8 @@ public class EmployeeService {
         return allEmployees;
     }
 
-    public Employee addPerson(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee addPerson(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (!validatePerson(firstName, lastName)) {
             throw new InvalidInputException();
         }
@@ -34,8 +34,8 @@ public class EmployeeService {
         return employee;
     }
 
-    public Employee deletePerson(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee deletePerson(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (!validatePerson(firstName, lastName)) {
             throw new InvalidInputException();
         }
@@ -47,10 +47,10 @@ public class EmployeeService {
         return employee;
     }
 
-    public Employee findPerson(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee findPerson(String firstName, String lastName, int department, double salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (!validatePerson(firstName, lastName)) {
-            throw new InvalidInputException  ();
+            throw new InvalidInputException();
         }
         if (!allEmployees.contains(employee)) {
             throw new EmployeeNotFoundException();
